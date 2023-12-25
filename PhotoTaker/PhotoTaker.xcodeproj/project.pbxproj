@@ -19,6 +19,7 @@
 		8956D67D2B39D9A8006C9BC0 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8956D67C2B39D9A8006C9BC0 /* DetailView.swift */; };
 		8956D67F2B39DA41006C9BC0 /* DetailView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8956D67E2B39DA41006C9BC0 /* DetailView-ViewModel.swift */; };
 		8956D6812B39DB53006C9BC0 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8956D6802B39DB53006C9BC0 /* DataExtension.swift */; };
+		8956D6832B39DCAB006C9BC0 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8956D6822B39DCAB006C9BC0 /* LocationFetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		8956D67C2B39D9A8006C9BC0 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		8956D67E2B39DA41006C9BC0 /* DetailView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailView-ViewModel.swift"; sourceTree = "<group>"; };
 		8956D6802B39DB53006C9BC0 /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
+		8956D6822B39DCAB006C9BC0 /* LocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				8956D67E2B39DA41006C9BC0 /* DetailView-ViewModel.swift */,
 				8956D6742B39CD97006C9BC0 /* FileManager-PicturesDirectory.swift */,
 				8956D6702B39CC60006C9BC0 /* Photo.swift */,
+				8956D6822B39DCAB006C9BC0 /* LocationFetcher.swift */,
 				8956D6662B39CB02006C9BC0 /* Assets.xcassets */,
 				8956D6682B39CB02006C9BC0 /* Preview Content */,
 			);
@@ -165,6 +168,7 @@
 				8956D67D2B39D9A8006C9BC0 /* DetailView.swift in Sources */,
 				8956D67F2B39DA41006C9BC0 /* DetailView-ViewModel.swift in Sources */,
 				8956D6812B39DB53006C9BC0 /* DataExtension.swift in Sources */,
+				8956D6832B39DCAB006C9BC0 /* LocationFetcher.swift in Sources */,
 				8956D6792B39CF8E006C9BC0 /* AddView-ViewModel.swift in Sources */,
 				8956D6752B39CD97006C9BC0 /* FileManager-PicturesDirectory.swift in Sources */,
 				8956D6772B39CF84006C9BC0 /* AddView.swift in Sources */,
@@ -306,6 +310,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PhotoTaker/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To ensure transparency and user consent regarding the app's need to access the device's location data during active use";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -334,6 +339,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PhotoTaker/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To ensure transparency and user consent regarding the app's need to access the device's location data during active use";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -18,7 +18,10 @@ extension AddView{
         @Published var selectedImage: Image?
         @Published var name: String = ""
         
+        let locationFetcher = LocationFetcher()
+        
         init(onSave: @escaping (Photo) -> Void) {
+            self.locationFetcher.start()
             self.onSave = onSave
         }
         
@@ -35,9 +38,12 @@ extension AddView{
         }
         
         func save(){
-            let photo = Photo(id: UUID(), name: name, image: selectedData!)
-            
-            onSave(photo)
+            if let location = self.locationFetcher.lastKnownLocation{
+                let photo = Photo(id: UUID(), name: name, image: selectedData!, latitude: location.latitude, longitude: location.longitude)
+                onSave(photo)
+            } else {
+                print("Your location is unknown")
+            }
         }
     }
 }

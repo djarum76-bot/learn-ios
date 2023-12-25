@@ -5,6 +5,7 @@
 //  Created by habil . on 25/12/23.
 //
 
+import MapKit
 import SwiftUI
 
 struct DetailView: View {
@@ -15,9 +16,20 @@ struct DetailView: View {
     }
     
     var body: some View {
-        viewModel.photo.image.convertDatatoImage()
-            .resizable()
-            .scaledToFit()
+        Form{
+            Section{
+                viewModel.photo.image.convertDatatoImage()
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(.rect(cornerRadius: 10))
+            }
+            
+            Map(initialPosition: viewModel.position){
+                Marker(viewModel.photo.name, coordinate: viewModel.photo.coordinate)
+            }
+                .frame(width: 300, height: 300)
+                .clipShape(.rect(cornerRadius: 10))
+        }
     }
 }
 
