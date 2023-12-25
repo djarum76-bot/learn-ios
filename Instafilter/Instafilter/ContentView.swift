@@ -93,7 +93,8 @@ struct ContentView: View {
     }
     
     func changeFilter(){
-        showingFilters = true
+        showingFilters =
+        true
     }
     
     func loadImage(){
