@@ -69,6 +69,9 @@ struct AddView: View {
         .alert("Oops...", isPresented: $addVM.showingAlert){} message: {
             Text(addVM.alertMessage)
         }
+        .alert("Oops...", isPresented: $addVM.hasError) {} message: {
+            Text(addVM.addError?.errorDescription ?? "You encountering an error")
+        }
     }
 }
 

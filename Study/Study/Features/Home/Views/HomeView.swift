@@ -38,6 +38,11 @@ struct HomeView: View {
                                         }
                                     }
                                     .tint(.red)
+                                    
+                                    Button("Edit") {
+                                        homeVM.navigateToEdit(post: post)
+                                    }
+                                    .tint(.green)
                                 }
                             }
                         }
@@ -72,7 +77,7 @@ struct HomeView: View {
                     Spacer()
                     
                     Button{
-                        homeVM.showingSheet.toggle()
+                        homeVM.showingAddSheet.toggle()
                     } label: {
                         Image(systemName: "plus")
                             .font(.body.weight(.semibold))
@@ -96,8 +101,12 @@ struct HomeView: View {
         .refreshable {
             await homeVM.getAllPost()
         }
-        .sheet(isPresented: $homeVM.showingSheet) {
+        .sheet(isPresented: $homeVM.showingAddSheet) {
             AddView()
+                .environmentObject(homeVM)
+        }
+        .sheet(isPresented: $homeVM.showingEditSheet) {
+            EditView(id: homeVM.post?.id ?? 0, image: homeVM.post?.image ?? "", description: homeVM.post?.description ?? "")
                 .environmentObject(homeVM)
         }
     }

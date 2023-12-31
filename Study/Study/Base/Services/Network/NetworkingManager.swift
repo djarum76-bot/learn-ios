@@ -157,6 +157,9 @@ private extension NetworkingManagerImpl {
             request.httpBody = data
         case .DELETE:
             request.httpMethod = "DELETE"
+        case .PUT(let data):
+            request.httpMethod = "PUT"
+            request.httpBody = data
         }
         
         if url.isAuthorized {

@@ -15,6 +15,7 @@ enum Endpoint {
     case getAllPost
     case deletePost(id: Int)
     case addPost(submissionData: Data?)
+    case updatePost(submissionData: Data?)
 }
 
 extension Endpoint {
@@ -22,6 +23,7 @@ extension Endpoint {
         case DELETE
         case GET
         case POST(data: Data?)
+        case PUT(data: Data?)
     }
 }
 
@@ -37,7 +39,7 @@ extension Endpoint {
             return "/login"
         case .getUser:
             return "/auth/user"
-        case .getAllPost, .addPost:
+        case .getAllPost, .addPost, .updatePost:
             return "/auth/post"
         case .getPost(let id), .deletePost(let id):
             return "/auth/post/\(id)"
@@ -52,6 +54,8 @@ extension Endpoint {
             return .POST(data: data)
         case .deletePost:
             return .DELETE
+        case .updatePost(let data):
+            return .PUT(data: data)
         }
     }
 }

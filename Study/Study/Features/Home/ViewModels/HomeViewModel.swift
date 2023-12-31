@@ -13,7 +13,10 @@ import Foundation
     @Published var hasError = false
     @Published var showingAlert = false
     @Published var posts: [Post] = []
-    @Published var showingSheet = false
+    @Published var post: Post?
+    
+    @Published var showingAddSheet = false
+    @Published var showingEditSheet = false
     
     private let networkingManager: NetworkingManager!
     private var postsResponse: Response<[Post]>?
@@ -31,7 +34,6 @@ import Foundation
             
             networkingState = .success
         } catch {
-            print(error)
             hasError = true
             networkingState = .failed
             
@@ -66,6 +68,11 @@ import Foundation
                 self.homeError = .system(error: error)
             }
         }
+    }
+    
+    func navigateToEdit(post: Post){
+        self.post = post
+        showingEditSheet.toggle()
     }
 }
 
