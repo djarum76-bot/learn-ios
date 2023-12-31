@@ -11,10 +11,15 @@ enum Endpoint {
     case register(submissionData: Data?)
     case login(submissionData: Data?)
     case getUser
+    case getPost(id: Int)
+    case getAllPost
+    case deletePost(id: Int)
+    case addPost(submissionData: Data?)
 }
 
 extension Endpoint {
     enum MethodType: Equatable {
+        case DELETE
         case GET
         case POST(data: Data?)
     }
@@ -32,15 +37,21 @@ extension Endpoint {
             return "/login"
         case .getUser:
             return "/auth/user"
+        case .getAllPost, .addPost:
+            return "/auth/post"
+        case .getPost(let id), .deletePost(let id):
+            return "/auth/post/\(id)"
         }
     }
     
     var methodType: MethodType {
         switch self {
-        case .getUser:
+        case .getUser, .getPost, .getAllPost:
             return .GET
-        case .register(let data), .login(let data):
+        case .register(let data), .login(let data), .addPost(let data):
             return .POST(data: data)
+        case .deletePost:
+            return .DELETE
         }
     }
 }
@@ -59,5 +70,9 @@ extension Endpoint {
 extension URL {
     var isAuthorized: Bool {
         return self.absoluteString.contains("/auth/")
+    }
+    
+    var isAddPost: Bool {
+        return self.absoluteString.contains("/auth/post")
     }
 }

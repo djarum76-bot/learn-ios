@@ -8,12 +8,102 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var homeVM = HomeViewModel()
+    @EnvironmentObject private var routeManager: RouteManager
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            .navigationTitle("Home")
+        ZStack{
+            Form{
+                switch homeVM.networkingState{
+                case.loading:
+                    Section{
+                        HStack{
+                            Spacer()
+                            ProgressView()
+                                .frame(alignment: .center)
+                            Spacer()
+                        }
+                    }
+                case .success:
+                    List{
+                        ForEach(homeVM.posts){ post in
+                            Section{
+                                HomeItem(post: post)
+                            }
+                            .swipeActions{
+                                if AuthManager.shared.id == post.userID {
+                                    Button("Delete") {
+                                        Task {
+                                            await homeVM.deletePost(post: post)
+                                        }
+                                    }
+                                    .tint(.red)
+                                }
+                            }
+                        }
+                    }
+                case .failed:
+                    Section{
+                        HStack{
+                            Spacer()
+                            Text("\(homeVM.homeError?.errorDescription ?? "You encountering an error")\nPull down to refresh")
+                                .multilineTextAlignment(.center)
+                                .frame(alignment: .center)
+                            Spacer()
+                        }
+                    }
+                case .initial:
+                    Section{
+                        HStack{
+                            Spacer()
+                            Text("Pull down to refresh")
+                                .multilineTextAlignment(.center)
+                                .frame(alignment: .center)
+                            Spacer()
+                        }
+                    }
+                }
+            }
+            
+            VStack{
+                Spacer()
+                
+                HStack{
+                    Spacer()
+                    
+                    Button{
+                        homeVM.showingSheet.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.body.weight(.semibold))
+                            .tint(.white)
+                            .padding(15)
+                            .background(.blue)
+                            .clipShape(.circle)
+                            .shadow(radius: 4, x: 0, y: 4)
+                            .padding([.trailing, .bottom])
+                    }
+                }
+            }
+        }
+        .navigationTitle("Home")
+        .alert("Oops...", isPresented: $homeVM.hasError) {} message: {
+            Text(homeVM.homeError?.errorDescription ?? "You encountering an error")
+        }
+        .task {
+            await homeVM.getAllPost()
+        }
+        .refreshable {
+            await homeVM.getAllPost()
+        }
+        .sheet(isPresented: $homeVM.showingSheet) {
+            AddView()
+                .environmentObject(homeVM)
+        }
     }
 }
 
 #Preview {
     HomeView()
+        .environmentObject(RouteManager())
 }

@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 protocol NetworkingManager {
     func request<T: Codable>(session: URLSession, _ endpoint: Endpoint, type: T.Type) async throws -> T
     func request(session: URLSession, _ endpoint: Endpoint) async throws
+    func addPost(session: URLSession, _ endpoint: Endpoint, uiImage: UIImage, description: String) async throws
 }
 
 final class NetworkingManagerImpl: NetworkingManager{
@@ -45,6 +47,45 @@ final class NetworkingManagerImpl: NetworkingManager{
         }
         
         let request = buildRequest(from: url, methodType: endpoint.methodType)
+        
+        let (_, response) = try await session.data(for: request)
+        
+        guard let response = response as? HTTPURLResponse,
+              (200...300) ~= response.statusCode else {
+            let statusCode = (response as! HTTPURLResponse).statusCode
+            throw NetworkingError.invalidStatusCode(statusCode: statusCode)
+        }
+    }
+    
+    func addPost(session: URLSession, _ endpoint: Endpoint, uiImage: UIImage, description: String) async throws {
+        guard let url = endpoint.url else {
+            throw NetworkingError.invalidUrl
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var body = Data()
+        
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"description\"\r\n\r\n".data(using: .utf8)!)
+        body.append("\(description)\r\n".data(using: .utf8)!)
+        
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"image\"; filename=\"\(Int(Date().timeIntervalSince1970)).jpeg\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+        body.append(uiImage.pngData()!)
+        body.append("\r\n".data(using: .utf8)!)
+        
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        request.httpBody = body
+        
+        let token = AuthManager.shared.getToken()
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let (_, response) = try await session.data(for: request)
         
@@ -114,6 +155,8 @@ private extension NetworkingManagerImpl {
         case .POST(let data):
             request.httpMethod = "POST"
             request.httpBody = data
+        case .DELETE:
+            request.httpMethod = "DELETE"
         }
         
         if url.isAuthorized {

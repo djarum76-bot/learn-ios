@@ -18,18 +18,13 @@ struct SplashView: View {
             .background(.blue.gradient)
             .foregroundStyle(.white)
             .onAppear{
-                print("1")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    print("2")
                     if authManager.getToken() == "" {
-                        print("3")
                         routeManager.path.append(Route.login)
                     } else {
-                        print("4")
                         routeManager.path.append(Route.dashboard)
                     }
                 }
-                print("5")
             }
             .navigationDestination(for: String.self) { path in
                 switch path{
