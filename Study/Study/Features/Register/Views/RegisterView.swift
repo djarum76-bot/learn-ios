@@ -43,15 +43,6 @@ struct RegisterView: View {
         .onTapGesture {
             registerVM.passwordFocus = false
         }
-        .navigationDestination(for: String.self) { path in
-            switch path{
-            case Route.dashboard:
-                DashboardView()
-                    .navigationBarBackButtonHidden(true)
-                    .environmentObject(routeManager)
-            default: EmptyView()
-            }
-        }
         .navigationTitle("Register")
         .alert("Oops...", isPresented: $registerVM.hasError) {} message: {
             Text(registerVM.registerError?.errorDescription ?? "You encountering an error")

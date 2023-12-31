@@ -34,6 +34,7 @@
 		89DD47752B405F7E00B6264D /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DD47742B405F7E00B6264D /* DashboardView.swift */; };
 		89DD477A2B4060D700B6264D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DD47792B4060D700B6264D /* HomeView.swift */; };
 		89DD477F2B40632100B6264D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DD477E2B40632100B6264D /* Route.swift */; };
+		89DD47832B41235400B6264D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DD47822B41235400B6264D /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		89DD47742B405F7E00B6264D /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		89DD47792B4060D700B6264D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		89DD477E2B40632100B6264D /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		89DD47822B41235400B6264D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 		89DD47252B3F178400B6264D /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				89DD47802B41229100B6264D /* Splash */,
 				89DD47262B3F179100B6264D /* Login */,
 				89DD47272B3F179900B6264D /* Register */,
 				89DD47722B405EEF00B6264D /* Dashboard */,
@@ -335,6 +338,22 @@
 			path = Route;
 			sourceTree = "<group>";
 		};
+		89DD47802B41229100B6264D /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				89DD47812B41234400B6264D /* Views */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		89DD47812B41234400B6264D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89DD47822B41235400B6264D /* SplashView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -413,6 +432,7 @@
 			files = (
 				89DD475F2B3FFAB000B6264D /* FormValidator.swift in Sources */,
 				89DD474C2B3FAC2F00B6264D /* RegisterView.swift in Sources */,
+				89DD47832B41235400B6264D /* SplashView.swift in Sources */,
 				89DD473F2B3F1B2D00B6264D /* AuthManager.swift in Sources */,
 				89DD476C2B4034E300B6264D /* ProfileViewModel.swift in Sources */,
 				89DD47502B3FD07000B6264D /* LoginViewModel.swift in Sources */,

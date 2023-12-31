@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct RootView: View {
+    @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var routeManager: RouteManager
     
     var body: some View {
         NavigationStack(path: $routeManager.path){
-            LoginView()
+            SplashView()
+                .environmentObject(authManager)
                 .environmentObject(routeManager)
         }
     }
@@ -20,5 +22,6 @@ struct RootView: View {
 
 #Preview {
     RootView()
+        .environmentObject(AuthManager.shared)
         .environmentObject(RouteManager())
 }

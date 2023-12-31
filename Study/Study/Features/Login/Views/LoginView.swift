@@ -44,18 +44,6 @@ struct LoginView: View {
         .onTapGesture {
             loginVM.passwordFocus = false
         }
-        .navigationDestination(for: String.self) { path in
-            switch path{
-            case Route.register:
-                RegisterView()
-                    .environmentObject(routeManager)
-            case Route.dashboard:
-                DashboardView()
-                    .navigationBarBackButtonHidden(true)
-                    .environmentObject(routeManager)
-            default: EmptyView()
-            }
-        }
         .navigationTitle("Login")
         .alert("Oops...", isPresented: $loginVM.hasError) {} message: {
             Text(loginVM.loginError?.errorDescription ?? "You encountering an error")
