@@ -17,31 +17,6 @@ struct SplashView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.blue.gradient)
             .foregroundStyle(.white)
-            .onAppear{
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    if authManager.getToken() == "" {
-                        routeManager.path.append(Route.login)
-                    } else {
-                        routeManager.path.append(Route.dashboard)
-                    }
-                }
-            }
-            .navigationDestination(for: String.self) { path in
-                switch path{
-                case Route.login:
-                    LoginView()
-                        .navigationBarBackButtonHidden(true)
-                        .environmentObject(routeManager)
-                case Route.dashboard:
-                    DashboardView()
-                        .navigationBarBackButtonHidden(true)
-                        .environmentObject(routeManager)
-                case Route.register:
-                    RegisterView()
-                        .environmentObject(routeManager)
-                default: EmptyView()
-                }
-            }
     }
 }
 

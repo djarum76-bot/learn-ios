@@ -57,6 +57,7 @@ struct ProfileView: View {
             }
         }
         .navigationTitle("Me")
+        .navigationBarTitleDisplayMode(.inline)
         .alert("Hiks😥", isPresented: $profileVM.showingAlert) {
             Button("Cancel", role: .cancel){}
             Button("Yes", role: .destructive){

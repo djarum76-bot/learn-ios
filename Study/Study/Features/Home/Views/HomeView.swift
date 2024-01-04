@@ -92,6 +92,7 @@ struct HomeView: View {
             }
         }
         .navigationTitle("Home")
+        .navigationBarTitleDisplayMode(.inline)
         .alert("Oops...", isPresented: $homeVM.hasError) {} message: {
             Text(homeVM.homeError?.errorDescription ?? "You encountering an error")
         }
@@ -113,6 +114,8 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
-        .environmentObject(RouteManager())
+    NavigationStack{
+        HomeView()
+            .environmentObject(RouteManager())
+    }
 }

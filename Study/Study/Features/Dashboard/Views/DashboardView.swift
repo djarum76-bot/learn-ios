@@ -22,11 +22,14 @@ struct DashboardView: View {
                     Label("Me", systemImage: "person.crop.square")
                 }
         }
+        .tabViewStyle(.page(indexDisplayMode: .always))
         .environmentObject(routeManager)
     }
 }
 
 #Preview {
-    DashboardView()
-        .environmentObject(RouteManager())
+    NavigationStack{
+        DashboardView()
+            .environmentObject(RouteManager())
+    }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject private var loginVM = LoginViewModel()
+    @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var routeManager: RouteManager
     
     var body: some View {
@@ -44,14 +45,34 @@ struct LoginView: View {
         .onTapGesture {
             loginVM.passwordFocus = false
         }
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                if authManager.getToken() != "" {
+                    routeManager.path.append(Route.dashboard)
+                }
+            }
+        }
         .navigationTitle("Login")
         .alert("Oops...", isPresented: $loginVM.hasError) {} message: {
             Text(loginVM.loginError?.errorDescription ?? "You encountering an error")
+        }
+        .navigationDestination(for: String.self) { path in
+            switch path{
+            case Route.dashboard:
+                DashboardView()
+                    .navigationBarBackButtonHidden(true)
+                    .environmentObject(routeManager)
+            case Route.register:
+                RegisterView()
+                    .environmentObject(routeManager)
+            default: EmptyView()
+            }
         }
     }
 }
 
 #Preview {
     LoginView()
+        .environmentObject(AuthManager())
         .environmentObject(RouteManager())
 }
