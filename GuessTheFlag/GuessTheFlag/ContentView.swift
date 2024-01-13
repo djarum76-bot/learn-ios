@@ -43,7 +43,7 @@ struct FlagImage: View {
         Image(countries[number])
             .clipShape(.capsule)
             .shadow(radius: 5)
-            .accessibilityLabel(labels[countries[number], default: "Unknown flag"])
+            .accessibilityLabel(labels[countries[number], default: "Unknown flagcm"])
     }
 }
 
